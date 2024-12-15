@@ -9,3 +9,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+  security:
+    user:
+      name: Maciej
+      password: test123
