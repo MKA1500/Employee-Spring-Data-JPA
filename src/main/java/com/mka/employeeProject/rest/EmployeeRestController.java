@@ -1,5 +1,3 @@
-// src/main/java/com/mka/employeeProject/rest/EmployeeRestController.java
-
 package com.mka.employeeProject.rest;
 
 import com.mka.employeeProject.entity.Employee;
@@ -29,7 +27,12 @@ public class EmployeeRestController {
   @GetMapping("/{employeeId}")
   public ResponseEntity<Employee> findById(@PathVariable Long employeeId) {
     return employeeService.findById(employeeId)
-        .map(ResponseEntity::ok)
+        .map(employee -> {
+          if (employee.getEmployeeDetail() != null) {
+            employee.getEmployeeDetail().getDepartment(); // Initialize lazy-loaded field
+          }
+          return ResponseEntity.ok(employee);
+        })
         .orElse(ResponseEntity.notFound().build());
   }
 
@@ -38,6 +41,11 @@ public class EmployeeRestController {
     if (employee.getId() != null) {
       return ResponseEntity.badRequest().build(); // Avoid creating with an existing ID
     }
+
+    if (employee.getEmployeeDetail() == null) {
+      return ResponseEntity.badRequest().body(null); // EmployeeDetail is mandatory
+    }
+
     Employee savedEmployee = employeeService.save(employee);
     return ResponseEntity.status(HttpStatus.CREATED).body(savedEmployee);
   }
@@ -47,8 +55,15 @@ public class EmployeeRestController {
       @PathVariable Long employeeId, @RequestBody Employee updatedEmployee) {
     return employeeService.findById(employeeId)
         .map(existingEmployee -> {
-          updatedEmployee.setId(employeeId); // Ensure the ID remains the same
-          Employee savedEmployee = employeeService.save(updatedEmployee);
+          if (updatedEmployee.getEmployeeDetail() != null) {
+            existingEmployee.setEmployeeDetail(updatedEmployee.getEmployeeDetail());
+          }
+          existingEmployee.setFirstName(updatedEmployee.getFirstName());
+          existingEmployee.setLastName(updatedEmployee.getLastName());
+          existingEmployee.setEmail(updatedEmployee.getEmail());
+          existingEmployee.setPhoneNumber(updatedEmployee.getPhoneNumber());
+
+          Employee savedEmployee = employeeService.save(existingEmployee);
           return ResponseEntity.ok(savedEmployee);
         })
         .orElse(ResponseEntity.notFound().build());

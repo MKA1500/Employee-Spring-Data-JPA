@@ -1,11 +1,23 @@
 CREATE DATABASE employee_project;
 
+-- DROP TABLE IF EXISTS employee_detail;
+
+CREATE TABLE employee_detail (
+    id SERIAL PRIMARY KEY,
+    department VARCHAR(45),
+    rank INT,
+    salary BIGINT
+);
+
+-- DROP TABLE IF EXISTS employee;
+
 CREATE TABLE employee (
     id SERIAL PRIMARY KEY,
     first_name VARCHAR(45),
     last_name VARCHAR(45),
     email VARCHAR(100),
-    phone_number VARCHAR(15)
+    phone_number VARCHAR(15),
+    employee_detail_id INT UNIQUE REFERENCES employee_detail(id)
 );
 
 -- for standard Spring Security would be:
@@ -15,6 +27,8 @@ CREATE TABLE employee (
 --    password VARCHAR(68) NOT NULL,
 --    enabled SMALLINT NOT NULL CHECK (enabled IN (0, 1))
 -- );
+
+-- DROP TABLE IF EXISTS members;
 
 CREATE TABLE members (
     user_id VARCHAR(50) PRIMARY KEY,
@@ -31,6 +45,8 @@ CREATE TABLE members (
 --     CONSTRAINT authorities_fk FOREIGN KEY (username)
 --         REFERENCES users (username) ON DELETE CASCADE
 -- );
+
+-- DROP TABLE IF EXISTS roles;
 
 CREATE TABLE roles (
        user_id VARCHAR(50) NOT NULL,
