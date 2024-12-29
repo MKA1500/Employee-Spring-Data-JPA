@@ -8,12 +8,12 @@ INSERT INTO employee (first_name, last_name, email, phone_number) VALUES
 -- password for 3 users below is: test1234
 -- encrypted with: https://www.bcryptcalculator.com/encode
 
-INSERT INTO users (username, password, enabled) VALUES
+INSERT INTO members (user_id, password, active) VALUES
     ('john', '{bcrypt}$2a$10$WPYI0ymGl77kScZXmsVFleTDd4EeI.9ZzCp7yR.rc53m.TLR12vkO', 1),
     ('jane', '{bcrypt}$2a$10$WPYI0ymGl77kScZXmsVFleTDd4EeI.9ZzCp7yR.rc53m.TLR12vkO', 1),
     ('maciej', '{bcrypt}$2a$10$WPYI0ymGl77kScZXmsVFleTDd4EeI.9ZzCp7yR.rc53m.TLR12vkO', 1);
 
-INSERT INTO authorities (username, authority) VALUES
+INSERT INTO roles (user_id, role) VALUES
     ('john', 'ROLE_EMPLOYEE'),
     ('jane', 'ROLE_EMPLOYEE'),
     ('jane', 'ROLE_MANAGER'),
