@@ -20,6 +20,11 @@ public class EmployeeDetail {
   @Column(name = "salary")
   private Long salary;
 
+  // bi-directional relations guarantees that after removing the given employeeDetail
+  // it will remove also the related employee
+  @OneToOne(mappedBy = "employeeDetail", cascade = CascadeType.ALL)
+  private Employee employee;
+
   public EmployeeDetail() {
   }
 

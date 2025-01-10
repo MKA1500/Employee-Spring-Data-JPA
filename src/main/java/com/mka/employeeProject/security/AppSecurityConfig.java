@@ -41,6 +41,7 @@ public class AppSecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/api/employees").hasRole("MANAGER")
                 .requestMatchers(HttpMethod.PUT, "/api/employees/**").hasRole("MANAGER")
                 .requestMatchers(HttpMethod.DELETE, "/api/employees/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.GET, "/api/employeeDetails").hasRole("EMPLOYEE")
     );
 
     // use HTTP Basic authentication
