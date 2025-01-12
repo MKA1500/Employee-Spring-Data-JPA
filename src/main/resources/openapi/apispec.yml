@@ -1,0 +1,238 @@
+openapi: 3.0.3
+info:
+  title: Employee and EmployeeDetail API
+  description: API for managing Employees and EmployeeDetails
+  version: 1.0.0
+servers:
+  - url: /api
+    description: API Server
+paths:
+  /employees:
+    get:
+      summary: Get all employees
+      tags:
+        - Employees
+      responses:
+        '200':
+          description: List of employees
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Employee'
+    post:
+      summary: Create a new employee
+      tags:
+        - Employees
+      requestBody:
+        description: Employee object to be created
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Employee'
+      responses:
+        '201':
+          description: Employee created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+        '400':
+          description: Invalid input
+  /employees/{employeeId}:
+    get:
+      summary: Get an employee by ID
+      tags:
+        - Employees
+      parameters:
+        - name: employeeId
+          in: path
+          required: true
+          description: ID of the employee to retrieve
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Employee found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+        '404':
+          description: Employee not found
+    put:
+      summary: Update an employee by ID
+      tags:
+        - Employees
+      parameters:
+        - name: employeeId
+          in: path
+          required: true
+          description: ID of the employee to update
+          schema:
+            type: integer
+      requestBody:
+        description: Updated employee object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Employee'
+      responses:
+        '200':
+          description: Employee updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+        '404':
+          description: Employee not found
+    delete:
+      summary: Delete an employee by ID
+      tags:
+        - Employees
+      parameters:
+        - name: employeeId
+          in: path
+          required: true
+          description: ID of the employee to delete
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Employee deleted
+        '404':
+          description: Employee not found
+  /employeeDetails:
+    get:
+      summary: Get all employee details
+      tags:
+        - EmployeeDetails
+      responses:
+        '200':
+          description: List of employee details
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EmployeeDetail'
+    post:
+      summary: Create a new employee detail
+      tags:
+        - EmployeeDetails
+      requestBody:
+        description: Employee detail object to be created
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeeDetail'
+      responses:
+        '201':
+          description: Employee detail created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeDetail'
+        '400':
+          description: Invalid input
+  /employeeDetails/{id}:
+    get:
+      summary: Get an employee detail by ID
+      tags:
+        - EmployeeDetails
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the employee detail to retrieve
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Employee detail found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeDetail'
+        '404':
+          description: Employee detail not found
+    put:
+      summary: Update an employee detail by ID
+      tags:
+        - EmployeeDetails
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the employee detail to update
+          schema:
+            type: integer
+      requestBody:
+        description: Updated employee detail object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeeDetail'
+      responses:
+        '200':
+          description: Employee detail updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeDetail'
+        '404':
+          description: Employee detail not found
+    delete:
+      summary: Delete an employee detail by ID
+      tags:
+        - EmployeeDetails
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the employee detail to delete
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Employee detail deleted
+        '404':
+          description: Employee detail not found
+components:
+  schemas:
+    Employee:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Employee ID
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        phoneNumber:
+          type: string
+        employeeDetail:
+          $ref: '#/components/schemas/EmployeeDetail'
+    EmployeeDetail:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: EmployeeDetail ID
+        department:
+          type: string
+        rank:
+          type: integer
+        salary:
+          type: number
+          format: float
+        employee:
+          $ref: '#/components/schemas/Employee'
