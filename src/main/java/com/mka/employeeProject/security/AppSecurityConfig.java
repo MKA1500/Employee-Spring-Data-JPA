@@ -46,6 +46,11 @@ public class AppSecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/api/employeeDetails").hasRole("MANAGER")
                 .requestMatchers(HttpMethod.PUT, "/api/employeeDetails/**").hasRole("MANAGER")
                 .requestMatchers(HttpMethod.DELETE, "/api/employeeDetails/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.GET, "/api/employeeBenefits").hasRole("MANAGER")
+                .requestMatchers(HttpMethod.GET, "/api/employeeBenefits/**").hasRole("EMPLOYEE") // should be restricted to only his benefit
+                .requestMatchers(HttpMethod.POST, "/api/employeeBenefits").hasRole("MANAGER")
+                .requestMatchers(HttpMethod.PUT, "/api/employeeBenefits/**").hasRole("MANAGER")
+                .requestMatchers(HttpMethod.DELETE, "/api/employeeBenefits/**").hasRole("ADMIN")
     );
 
     // use HTTP Basic authentication

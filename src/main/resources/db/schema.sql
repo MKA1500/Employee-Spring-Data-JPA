@@ -20,6 +20,15 @@ CREATE TABLE employee (
     employee_detail_id INT UNIQUE REFERENCES employee_detail(id)
 );
 
+-- DROP TABLE IF EXISTS employee_benefit;
+
+CREATE TABLE employee_benefit (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(45),
+    cost BIGINT,
+    employee_id INT REFERENCES employee(id)
+);
+
 -- for standard Spring Security would be:
 
 -- CREATE TABLE users (
