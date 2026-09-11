@@ -3,8 +3,8 @@ spring:
     name: employeeProject
   datasource:
     url: jdbc:postgresql://localhost:5432/employee_project
-    username: postgres1
-    password: postgres1
+    username: postgres
+    password: postgres
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:

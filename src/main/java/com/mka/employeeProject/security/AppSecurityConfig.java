@@ -33,7 +33,7 @@ public class AppSecurityConfig {
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    http.authorizeRequests(
+    http.authorizeHttpRequests(
         configurer ->
             configurer
                 .requestMatchers(HttpMethod.GET, "/api/employees").hasRole("EMPLOYEE")
